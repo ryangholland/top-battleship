@@ -1,0 +1,134 @@
+Conversation
+  opened.
+  1
+  read
+  message.
+  Skip
+  to
+  content
+  Using
+  Gmail
+  with
+  screen
+  readers
+  1
+  of
+  95
+  battleship
+  ui
+  Inbox
+  Ryan
+  Holland
+  <rghcode@gmail.com>
+  Attachments
+  8:50 am
+  (41 minutes ago)
+  to
+  me
+  2
+  Attachments
+  •
+  Scanned
+  by
+  Gmail
+  *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header,
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: lightgray;
+}
+
+main {
+  padding-block: 1rem;
+}
+
+#placement,
+#gameplay {
+  text-align: center;
+}
+
+#placement > * + *,
+#gameplay > * + * {
+  margin-top: 1rem;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+.grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 3.5px;
+  width: 350px;
+  height: 350px;
+}
+
+.cell {
+  background-color: lightgray;
+  border: 1px solid #ccc;
+}
+
+#gameplay-grids {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
