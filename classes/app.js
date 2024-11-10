@@ -1,8 +1,10 @@
 import DisplayController from "./displayController";
+import GameController from "./gameController";
 
 export default class App {
   constructor() {
     this.displayController = new DisplayController();
+    this.gameController = new GameController();
   }
 
   init() {
@@ -12,5 +14,10 @@ export default class App {
     this.displayController.loadGrid(placementGrid);
     this.displayController.loadGrid(enemyGrid);
     this.displayController.loadGrid(playerGrid);
+
+    this.gameController.humanPlayer.placeShipsRandom();
+    this.gameController.compPlayer.placeShipsRandom();
+
+    console.log(this.gameController);
   }
 }

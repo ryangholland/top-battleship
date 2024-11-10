@@ -10,26 +10,36 @@ export default class GameBoard {
     return Array.from({ length: 10 }, () => Array(10).fill("empty"));
   }
 
-  placeShip(ship, startX, startY, direction) {
-    if (direction === "horizontal" && startX + ship.length > 10) {
-      throw new Error("Ship placement out of bounds horizontally");
+  isValidPlacement(length, x, y, direction) {
+    // Check if the ship fits within the board boundaries
+    if (direction === "horizontal" && x + length > 10) return false;
+    if (direction === "vertical" && y + length > 10) return false;
+
+    // Check if any cell in the ship's path is already occupied
+    for (let i = 0; i < length; i++) {
+      if (direction === "horizontal" && this.board[y][x + i] !== "empty")
+        return false;
+      if (direction === "vertical" && this.board[y + i][x] !== "empty")
+        return false;
     }
-    if (direction === "vertical" && startY + ship.length > 10) {
-      throw new Error("Ship placement out of bounds vertically");
+
+    return true;
+  }
+
+  placeShip(ship, startX, startY, direction) {
+    if (!this.isValidPlacement(ship.length, startX, startY, direction)) {
+      return false;
     }
 
     for (let i = 0; i < ship.length; i++) {
-      const x = direction === "horizontal" ? startX + i : startX;
-      const y = direction === "vertical" ? startY + i : startY;
-
-      if (this.board[y][x] !== "empty") {
-        throw new Error("Cannot place ship on an occupied cell");
+      if (direction === "horizontal") {
+        this.board[startY][startX + i] = "ship";
+      } else {
+        this.board[startY + i][startX] = "ship";
       }
-
-      this.board[y][x] = ship;
-      ship.position.push({ x, y });
     }
 
+    ship.placed = true;
     this.ships.push(ship);
   }
 
