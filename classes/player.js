@@ -15,7 +15,6 @@ export default class Player {
   }
 
   placeShipsRandom() {
-    console.log(this.ships)
     this.ships.forEach((ship) => {
       while (!ship.placed) {
         const randomX = Math.floor(Math.random() * 10);

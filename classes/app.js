@@ -8,15 +8,15 @@ export default class App {
   }
 
   init() {
-    const placementGrid = document.getElementById("placement-grid");
-    const enemyGrid = document.getElementById("enemy-grid");
-    const playerGrid = document.getElementById("player-grid");
-    this.displayController.loadGrid(placementGrid);
-    this.displayController.loadGrid(enemyGrid);
-    this.displayController.loadGrid(playerGrid);
+    this.displayController.loadGrids();
 
-    this.gameController.humanPlayer.placeShipsRandom();
-    this.gameController.compPlayer.placeShipsRandom();
+    const randomPlacementBtn = document.getElementById("random-placement-btn");
+    randomPlacementBtn.addEventListener("click", () => {
+      this.gameController.humanPlayer.placeShipsRandom();
+      this.gameController.compPlayer.placeShipsRandom();
+      this.displayController.showGameplayScreen();
+      this.displayController.displayShips(this.gameController.humanPlayer);
+    });
 
     console.log(this.gameController);
   }
