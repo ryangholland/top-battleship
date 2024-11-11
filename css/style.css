@@ -103,3 +103,11 @@ h3 {
 .ship-here {
   background-color: black;
 }
+
+.hit-here {
+  background-color: red;
+}
+
+.miss-here {
+  background-color: blue;
+}

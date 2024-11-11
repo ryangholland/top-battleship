@@ -1,7 +1,7 @@
 export default class DisplayController {
   constructor() {}
 
-  loadGrid(div) {
+  static loadGrid(div) {
     for (let i = 0; i < 100; i++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
@@ -10,16 +10,16 @@ export default class DisplayController {
     }
   }
 
-  loadGrids() {
+  static loadGrids() {
     const placementGrid = document.getElementById("placement-grid");
-    const enemyGrid = document.getElementById("enemy-grid");
+    const opponentGrid = document.getElementById("opponent-grid");
     const playerGrid = document.getElementById("player-grid");
     this.loadGrid(placementGrid);
-    this.loadGrid(enemyGrid);
+    this.loadGrid(opponentGrid);
     this.loadGrid(playerGrid);
   }
 
-  showGameplayScreen() {
+  static showGameplayScreen() {
     const placementDiv = document.getElementById("placement");
     const gameplayDiv = document.getElementById("gameplay");
 
@@ -27,24 +27,30 @@ export default class DisplayController {
     gameplayDiv.hidden = false;
   }
 
-  displayShips(player) {
-    const gridDiv =
-      player.type == "human"
-        ? document.getElementById("player-grid")
-        : document.getElementById("enemy-grid");
+  static displayShips(player, grid) {
+    const cellDivs = grid.querySelectorAll("[data-cell]");
 
-    const cellDivs = gridDiv.querySelectorAll("[data-cell]");
+    let cellNum = 0;
+    player.gameBoard.board.forEach((cell) => {
+      if (cell === "ship") {
+        cellDivs[cellNum].classList.add("ship-here");
+      }
+      cellNum++;
+    });
+  }
 
-    let rowNum = 0;
-    player.gameBoard.board.forEach((row) => {
-      let cellNum = 0;
-      row.forEach((cell) => {
-        if (cell === "ship") {
-          cellDivs[rowNum * 10 + cellNum].classList.add("ship-here");
-        }
-        cellNum++;
-      });
-      rowNum++;
+  static updateBoardDisplay(player, grid) {
+    const cellDivs = grid.querySelectorAll("[data-cell]");
+
+    let cellNum = 0;
+    player.gameBoard.board.forEach((cell) => {
+      if (cell === "hit") {
+        cellDivs[cellNum].classList.add("hit-here");
+      }
+      if (cell === "miss") {
+        cellDivs[cellNum].classList.add("miss-here");
+      }
+      cellNum++;
     });
   }
 }

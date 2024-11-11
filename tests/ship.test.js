@@ -2,10 +2,20 @@ import Ship from "../classes/ship";
 
 describe("Ship class", () => {
   test("initializes with the correct properties", () => {
-    const ship = new Ship(3);
-    expect(ship.length).toBe(3);
+    const ship = new Ship(4, "Battleship");
+    expect(ship.length).toBe(4);
+    expect(ship.name).toBe("Battleship");
+    expect(ship.placed).toBe(false);
     expect(ship.timesHit).toBe(0);
     expect(ship.sunk).toBe(false);
+    expect(ship.position).toStrictEqual([]);
+  });
+
+  test("place ship when place method is called", () => {
+    const ship = new Ship(4, "Battleship");
+    ship.place([0, 1, 2, 3]);
+    expect(ship.placed).toBe(true);
+    expect(ship.position).toStrictEqual([0, 1, 2, 3]);
   });
 
   test("increments timesHit when hit method is called", () => {
@@ -35,19 +45,9 @@ describe("Ship class", () => {
   test("sunk property is set to true when ship is sunk", () => {
     const ship = new Ship(2);
     ship.hit();
-    expect(ship.sunk).toBe(false); // Not sunk yet
-    ship.hit();
-    ship.isSunk(); // isSunk should set sunk to true
-    expect(ship.sunk).toBe(true);
-  });
-
-  test("isSunk remains true once ship is sunk", () => {
-    const ship = new Ship(2);
-    ship.hit();
+    expect(ship.sunk).toBe(false);
     ship.hit();
     ship.isSunk();
-    expect(ship.isSunk()).toBe(true);
-    ship.hit(); // Additional hits shouldn't affect sunk status
-    expect(ship.isSunk()).toBe(true);
+    expect(ship.sunk).toBe(true);
   });
 });

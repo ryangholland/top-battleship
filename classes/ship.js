@@ -1,11 +1,16 @@
 export default class Ship {
-  constructor(length, name) {
+  constructor(length, name = "Ship") {
     this.length = length;
     this.name = name;
     this.placed = false;
+    this.position = [];
     this.timesHit = 0;
     this.sunk = false;
-    this.position = [];
+  }
+
+  place(cells) {
+    this.placed = true;
+    this.position = cells;
   }
 
   hit() {
