@@ -7,14 +7,60 @@ export default class App {
   }
 
   init() {
+    // Create events folder, 3 files: placementEvents, gameplayEvents, gameoverEvents
+
     DisplayController.loadGrids();
+    const placementGrid = document.getElementById("placement-grid");
     const opponentGrid = document.getElementById("opponent-grid");
     const playerGrid = document.getElementById("player-grid");
 
     // Placement Phase
+    let activeShipNum = 0;
+    let activeDirection = "horizontal";
+    DisplayController.updateActiveShipName(
+      this.game.player.ships[activeShipNum]
+    );
+
+    const rotateBtn = document.getElementById("rotate-btn");
+    rotateBtn.addEventListener("click", () => {
+      activeDirection =
+        activeDirection === "horizontal" ? "vertical" : "horizontal";
+    });
+
+    const placementCellDivs = placementGrid.querySelectorAll("[data-cell]");
+    placementCellDivs.forEach((cellDiv) => {
+      cellDiv.addEventListener("click", () => {
+        let shipPlaced;
+        shipPlaced = this.game.player.gameBoard.placeShip(
+          this.game.player.ships[activeShipNum],
+          +cellDiv.dataset.cell,
+          activeDirection
+        );
+
+        if (
+          this.game.player.ships.filter((ship) => !ship.placed).length === 0
+        ) {
+          this.game.opponent.gameBoard.placeAllShipsRandomly(
+            this.game.opponent.ships
+          );
+          DisplayController.showGameplayScreen();
+          DisplayController.displayShips(this.game.player, playerGrid);
+          DisplayController.displayShips(this.game.opponent, opponentGrid);
+        } else {
+          if (shipPlaced) activeShipNum++;
+          DisplayController.displayShips(this.game.player, placementGrid);
+          DisplayController.updateActiveShipName(
+            this.game.player.ships[activeShipNum]
+          );
+        }
+      });
+    });
+
     const randomPlacementBtn = document.getElementById("random-placement-btn");
     randomPlacementBtn.addEventListener("click", () => {
-      this.game.player.gameBoard.placeAllShipsRandomly(this.game.player.ships);
+      this.game.player.gameBoard.placeAllShipsRandomly(
+        this.game.player.ships.filter((ship) => !ship.placed)
+      );
       this.game.opponent.gameBoard.placeAllShipsRandomly(
         this.game.opponent.ships
       );
@@ -63,12 +109,11 @@ export default class App {
     });
 
     // Restart Game
-    const restartBtn = document.getElementById("restart")
+    const restartBtn = document.getElementById("restart");
     restartBtn.addEventListener("click", () => {
       this.game = new Game();
       DisplayController.loadGrids();
       DisplayController.showPlacementScreen();
-    })
-
+    });
   }
 }

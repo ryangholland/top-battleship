@@ -22,6 +22,11 @@ export default class DisplayController {
     this.loadGrid(playerGrid);
   }
 
+  static updateActiveShipName(ship) {
+    const placementShipNameDiv = document.getElementById("placement-ship-name");
+    placementShipNameDiv.textContent = ship.name;
+  }
+
   static showGameplayScreen() {
     const placementDiv = document.getElementById("placement");
     const gameplayDiv = document.getElementById("gameplay");
