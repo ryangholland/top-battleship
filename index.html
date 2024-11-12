@@ -16,7 +16,7 @@
       <h1>Battleship</h1>
     </header>
     <main>
-      <div id="placement">
+      <div id="placement" >
         <h2>Place your <span id="placement-ship-name">SHIP</span></h2>
         <button>Rotate</button>
         <div id="placement-grid" class="grid"></div>
@@ -35,6 +35,12 @@
             <div id="player-grid" class="grid"></div>
           </div>
         </div>
+      </div>
+
+      <div id="gameover" hidden>
+        <h2>Game Over!</h2>
+        <h3><span id="winner">Win Loss message</span></h3>
+        <button id="restart">Play Again</button>
       </div>
     </main>
     <footer>

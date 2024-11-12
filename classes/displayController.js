@@ -14,6 +14,9 @@ export default class DisplayController {
     const placementGrid = document.getElementById("placement-grid");
     const opponentGrid = document.getElementById("opponent-grid");
     const playerGrid = document.getElementById("player-grid");
+    placementGrid.innerHTML = "";
+    opponentGrid.innerHTML = "";
+    playerGrid.innerHTML = "";
     this.loadGrid(placementGrid);
     this.loadGrid(opponentGrid);
     this.loadGrid(playerGrid);
@@ -22,9 +25,33 @@ export default class DisplayController {
   static showGameplayScreen() {
     const placementDiv = document.getElementById("placement");
     const gameplayDiv = document.getElementById("gameplay");
+    const gameoverDiv = document.getElementById("gameover");
 
     placementDiv.hidden = true;
     gameplayDiv.hidden = false;
+    gameoverDiv.hidden = true;
+  }
+
+  static showGameOverScreen(winner) {
+    const placementDiv = document.getElementById("placement");
+    const gameplayDiv = document.getElementById("gameplay");
+    const gameoverDiv = document.getElementById("gameover");
+    const winnerSpan = document.getElementById("winner");
+
+    placementDiv.hidden = true;
+    gameplayDiv.hidden = true;
+    gameoverDiv.hidden = false;
+    winnerSpan.textContent = winner === "player" ? "You won!" : "You lost!";
+  }
+
+  static showPlacementScreen() {
+    const placementDiv = document.getElementById("placement");
+    const gameplayDiv = document.getElementById("gameplay");
+    const gameoverDiv = document.getElementById("gameover");
+
+    placementDiv.hidden = false;
+    gameplayDiv.hidden = true;
+    gameoverDiv.hidden = true;
   }
 
   static displayShips(player, grid) {

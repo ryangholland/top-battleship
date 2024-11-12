@@ -64,7 +64,8 @@ main {
 }
 
 #placement,
-#gameplay {
+#gameplay,
+#gameover {
   text-align: center;
 }
 
