@@ -15,8 +15,9 @@ export default class GameBoard {
   isValidPlacement(length, cellNum, direction) {
     // Check if the ship fits within the board boundaries
     if (direction === "horizontal") {
-      let nextRowStart = Math.ceil(cellNum / 10) * 10;
+      let nextRowStart = Math.ceil((cellNum + 0.01) / 10) * 10;
       if (nextRowStart === 0) nextRowStart += 10;
+      console.log(`Cell num: ${cellNum}; nextRowStart: ${nextRowStart}`);
       if (length + cellNum > nextRowStart) return false;
     }
 

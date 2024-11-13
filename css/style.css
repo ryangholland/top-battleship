@@ -105,10 +105,16 @@ h3 {
   background-color: black;
 }
 
-.hit-here {
+.hit-here,
+.hovering-invalid {
   background-color: red;
 }
 
 .miss-here {
   background-color: blue;
 }
+
+.hovering {
+  background-color: gray;
+}
+

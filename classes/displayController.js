@@ -85,4 +85,25 @@ export default class DisplayController {
       cellNum++;
     });
   }
+
+  static addHoverShade(cellDivs, game) {
+    cellDivs.forEach((cellDiv) => {
+      // If cells to shade = length of ship, color gray
+      if (cellDivs.length === game.player.ships[game.activeShipNum].length) {
+        cellDiv.classList.add("hovering");
+      }
+      // else, color red
+      else {
+        cellDiv.classList.add("hovering-invalid");
+      }
+    });
+  }
+
+  static removeHoverShade(grid) {
+    const cellDivs = grid.querySelectorAll("[data-cell]");
+    cellDivs.forEach((cellDiv) => {
+      cellDiv.classList.remove("hovering");
+      cellDiv.classList.remove("hovering-invalid");
+    });
+  }
 }

@@ -11,8 +11,55 @@ export default function loadPlacementEvents(game) {
     game.changeDirection();
   });
 
-  // Place ships
   const placementCellDivs = placementGrid.querySelectorAll("[data-cell]");
+
+  placementCellDivs.forEach((cellDiv) => {
+    cellDiv.addEventListener("mouseover", () => {
+      let cellDivsToShade = getDivsToShade(cellDiv, game.activeDirection);
+      DisplayController.addHoverShade(cellDivsToShade, game);
+    });
+
+    cellDiv.addEventListener("mouseout", () => {
+      DisplayController.removeHoverShade(placementGrid);
+    });
+  });
+
+  function getDivsToShade(cellDiv, direction) {
+    let cellNumsToShade = [];
+    let activeCellNum = +cellDiv.dataset.cell;
+    let activeShipLength = game.player.ships[game.activeShipNum].length;
+
+    if (direction === "horizontal") {
+      let nextRowStart = Math.ceil((activeCellNum + 0.01) / 10) * 10;
+      if (nextRowStart === 0) nextRowStart += 10;
+      for (let i = 0; i < activeShipLength; i++) {
+        if (activeCellNum < nextRowStart) {
+          cellNumsToShade.push(activeCellNum);
+        }
+        activeCellNum++;
+      }
+    }
+
+    if (direction === "vertical") {
+      for (let i = 0; i < activeShipLength; i++) {
+        if (activeCellNum <= 99) {
+          cellNumsToShade.push(activeCellNum);
+        }
+        activeCellNum += 10;
+      }
+    }
+
+    let cellDivsToShade = [];
+    cellNumsToShade.forEach((cellNum) => {
+      cellDivsToShade.push(
+        placementGrid.querySelector(`[data-cell="${cellNum}"]`)
+      );
+    });
+
+    return cellDivsToShade;
+  }
+
+  // Place ships
   placementCellDivs.forEach((cellDiv) => {
     cellDiv.addEventListener("click", () => {
       let shipPlaced;
