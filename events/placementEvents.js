@@ -11,8 +11,8 @@ export default function loadPlacementEvents(game) {
     game.changeDirection();
   });
 
+  // Add preview shading hover effect when placing ships
   const placementCellDivs = placementGrid.querySelectorAll("[data-cell]");
-
   placementCellDivs.forEach((cellDiv) => {
     cellDiv.addEventListener("mouseover", () => {
       let cellDivsToShade = getDivsToShade(cellDiv, game.activeDirection);
@@ -73,7 +73,7 @@ export default function loadPlacementEvents(game) {
         game.opponent.gameBoard.placeAllShipsRandomly(game.opponent.ships);
         DisplayController.showGameplayScreen();
         DisplayController.displayShips(game.player, playerGrid);
-        DisplayController.displayShips(game.opponent, opponentGrid);
+        // DisplayController.displayShips(game.opponent, opponentGrid);
       } else {
         if (shipPlaced) game.selectNextShip();
         DisplayController.displayShips(game.player, placementGrid);
@@ -93,6 +93,6 @@ export default function loadPlacementEvents(game) {
     game.opponent.gameBoard.placeAllShipsRandomly(game.opponent.ships);
     DisplayController.showGameplayScreen();
     DisplayController.displayShips(game.player, playerGrid);
-    DisplayController.displayShips(game.opponent, opponentGrid);
+    // DisplayController.displayShips(game.opponent, opponentGrid);
   });
 }

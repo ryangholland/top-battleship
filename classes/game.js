@@ -1,4 +1,5 @@
 import Player from "./player";
+import AiController from "./aiController";
 
 export default class Game {
   constructor() {
@@ -7,6 +8,7 @@ export default class Game {
     this.activeShipNum = 0;
     this.activeDirection = "horizontal";
     this.activeTurn = this.player;
+    this.ai = new AiController();
   }
 
   selectNextShip() {
